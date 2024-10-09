@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Key Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #keyContainer { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>IP Key Generator</h1>
+    <p>Your IP: <span id="ipDisplay"></span></p>
+    <button onclick="generateKey()">Generate Key</button>
+    <div id="keyContainer"></div>
+    <script>
+        // Fetch and display user's IP address
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('ipDisplay').textContent = data.ip;
+        });
+
+        function generateKey() {
+            const ip = document.getElementById('ipDisplay').textContent;
+            const key = btoa(ip + Date.now());
+            document.getElementById('keyContainer').innerHTML = `Your Key: <strong>${key}</strong>`;
+        }
+    </script>
+</body>
+</html>
